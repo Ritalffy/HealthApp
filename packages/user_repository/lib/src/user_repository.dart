@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:uuid/uuid.dart';
 
 import 'models/models.dart';
@@ -9,7 +11,7 @@ class UserRepository {
     if (_user != null) return _user;
     return Future.delayed(
       const Duration(milliseconds: 300),
-      () => _user = User(const Uuid().v4(), 'email@wp.pl', 'doctor'),
+      () => _user = User(const Uuid().v4()),
     );
   }
 }
