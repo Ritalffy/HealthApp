@@ -12,8 +12,10 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
+  flutter_bloc: ^7.0.0
   registration_repository:
     path: packages/registration_repository
+
   user_repository:
     path: packages/user_repository
     

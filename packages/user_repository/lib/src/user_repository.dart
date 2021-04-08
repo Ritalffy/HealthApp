@@ -1,17 +1,15 @@
 import 'package:uuid/uuid.dart';
 
-import 'models/user.dart';
+import 'models/models.dart';
 
 class UserRepository {
   User? _user;
 
   Future<User?> getUser() async {
-    if (_user != null) {
-      return _user;
-    }
+    if (_user != null) return _user;
     return Future.delayed(
       const Duration(milliseconds: 300),
-      () => _user = User(const Uuid().v4(), 'wiktoria@wp.pl', 'doctor'),
+      () => _user = User(const Uuid().v4(), 'email@wp.pl', 'doctor'),
     );
   }
 }
