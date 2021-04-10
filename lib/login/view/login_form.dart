@@ -37,15 +37,15 @@ class _UsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
-      buildWhen: (previous, current) => previous.username != current.username,
+      buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_usernameInput_textField'),
-          onChanged: (username) =>
-              context.read<LoginBloc>().add(LoginUsernameChanged(username)),
+          key: const Key('loginForm_emailInput_textField'),
+          onChanged: (email) =>
+              context.read<LoginBloc>().add(LoginUsernameChanged(email)),
           decoration: InputDecoration(
-            labelText: 'username',
-            errorText: state.username.invalid ? 'invalid username' : null,
+            labelText: 'email',
+            errorText: state.email.invalid ? 'invalid email' : null,
           ),
         );
       },
