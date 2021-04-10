@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/login/login.dart';
+import 'package:health_app/registration/view/registration_page.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -26,6 +27,8 @@ class LoginForm extends StatelessWidget {
             _PasswordInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _LoginButton(),
+            const Padding(padding: EdgeInsets.all(12)),
+            _RegisterButton(),
           ],
         ),
       ),
@@ -93,5 +96,18 @@ class _LoginButton extends StatelessWidget {
               );
       },
     );
+  }
+}
+
+class _RegisterButton extends StatelessWidget {
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  NavigatorState get _navigator => _navigatorKey.currentState!;
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+        onPressed: () => _navigator.push<void>(
+              RegisterPage.route(),
+            ),
+        child: Text('Create account'));
   }
 }

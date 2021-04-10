@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/authentication/authentication.dart';
 import 'package:health_app/home/home.dart';
 import 'package:health_app/login/login.dart';
-import 'package:health_app/splash/splash.dart';
+
 import 'package:user_repository/user_repository.dart';
+
+import 'loader/view/loader_page.dart';
 
 class App extends StatelessWidget {
   const App({
