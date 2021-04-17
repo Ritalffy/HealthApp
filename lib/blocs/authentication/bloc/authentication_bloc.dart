@@ -55,6 +55,9 @@ class AuthenticationBloc
         return user != null
             ? AuthenticationState.authenticated(user)
             : const AuthenticationState.unauthenticated();
+
+      case AuthenticationStatus.logout:
+        return const AuthenticationState.logout();
       default:
         return const AuthenticationState.unknown();
     }

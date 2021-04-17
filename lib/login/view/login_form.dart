@@ -16,6 +16,10 @@ class LoginForm extends StatelessWidget {
               const SnackBar(content: Text('Authentication Failure')),
             );
         }
+        if (state.status.isSubmissionSuccess) {
+          Navigator.of(context, rootNavigator: true)
+              .pushNamedAndRemoveUntil<void>(Routes.home, (route) => false);
+        }
       },
       child: Align(
         alignment: const Alignment(0, -1 / 3),
@@ -104,7 +108,7 @@ class _RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () => Navigator.of(context, rootNavigator: true)
-            .pushNamedAndRemoveUntil<void>(Routes.register, (route) => false),
+            .pushNamed<void>(Routes.register),
         child: Text('Create account'));
   }
 }
