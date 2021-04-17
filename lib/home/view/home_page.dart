@@ -11,10 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('XD');
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        print(state.status);
         if (state.status == AuthenticationStatus.logout) {
           Navigator.of(context, rootNavigator: true)
               .pushNamedAndRemoveUntil(Routes.start, (route) => false);
