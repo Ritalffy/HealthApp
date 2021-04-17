@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:health_app/registration/view/models/email.dart';
-import 'package:health_app/registration/view/models/models.dart';
-
-import 'package:meta/meta.dart';
+import 'package:health_app/registration/models/models.dart';
+import 'package:health_app/registration/models/profession.dart';
 
 part 'registration_bloc_event.dart';
 part 'registration_bloc_state.dart';

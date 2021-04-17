@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_app/registration/bloc/registration_bloc.dart';
+import 'package:health_app/registration/view/registration_form.dart';
 
 class RegisterPage extends StatelessWidget {
   static Route route() {
@@ -8,9 +11,14 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Register')),
-        body: Center(
-          child: Text('register'),
-        ));
+      appBar: AppBar(title: const Text('Register')),
+      body: BlocProvider(
+          // TODO: (Wiktoria) provide registration repository
+          create: (context) => RegistrationBloc(),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: RegistrationForm(),
+          )),
+    );
   }
 }
