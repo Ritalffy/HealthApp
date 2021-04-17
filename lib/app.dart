@@ -1,13 +1,10 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:health_app/authentication/authentication.dart';
-import 'package:health_app/home/home.dart';
-import 'package:health_app/login/login.dart';
+import 'package:health_app/blocs/authentication/bloc/authentication_bloc.dart';
+import 'package:health_app/utils/navigation/routes.dart';
 
 import 'package:user_repository/user_repository.dart';
-
-import 'loader/view/loader_page.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -40,38 +37,19 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-
-  NavigatorState get _navigator => _navigatorKey.currentState!;
-
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      navigatorKey: _navigatorKey,
       builder: (context, child) {
-        return BlocListener<AuthenticationBloc, AuthenticationState>(
-          listener: (context, state) {
-            switch (state.status) {
-              case AuthenticationStatus.authenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(),
-                  (route) => false,
-                );
-                break;
-              case AuthenticationStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(),
-                  (route) => false,
-                );
-                break;
-              default:
-                break;
-            }
-          },
-          child: child,
+        return Scaffold(
+          key: _scaffoldKey,
+          body: child,
+          resizeToAvoidBottomInset: false,
         );
       },
-      onGenerateRoute: (_) => LoaderPage.route(),
+      onGenerateRoute: Routes.generateRoute,
+      initialRoute: Routes.start,
     );
   }
 }

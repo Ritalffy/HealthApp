@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/login/login.dart';
-import 'package:health_app/registration/view/registration_page.dart';
+import 'package:health_app/utils/navigation/routes.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -100,14 +100,11 @@ class _LoginButton extends StatelessWidget {
 }
 
 class _RegisterButton extends StatelessWidget {
-  final _navigatorKey = GlobalKey<NavigatorState>();
-  NavigatorState get _navigator => _navigatorKey.currentState!;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: () => _navigator.push<void>(
-              RegisterPage.route(),
-            ),
+        onPressed: () => Navigator.of(context, rootNavigator: true)
+            .pushNamedAndRemoveUntil<void>(Routes.register, (route) => false),
         child: Text('Create account'));
   }
 }
