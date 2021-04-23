@@ -19,7 +19,19 @@ class HomePage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text('Home')),
+        appBar: AppBar(
+          title: const Text('Home'),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                context
+                    .read<AuthenticationBloc>()
+                    .add(AuthenticationLogoutRequested());
+              },
+            ),
+          ],
+        ),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -30,14 +42,6 @@ class HomePage extends StatelessWidget {
                     (AuthenticationBloc bloc) => bloc.state.user.id,
                   );
                   return Text('UserID: $userId');
-                },
-              ),
-              ElevatedButton(
-                child: const Text('Logout'),
-                onPressed: () {
-                  context
-                      .read<AuthenticationBloc>()
-                      .add(AuthenticationLogoutRequested());
                 },
               ),
             ],
