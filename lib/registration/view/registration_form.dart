@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/registration/bloc/registration_bloc.dart';
+import 'package:health_app/registration/models/role_model_keys.dart';
 
 import 'package:health_app/registration/view/widgets/role_dropdown.dart';
 import 'package:health_app/utils/navigation/routes.dart';
@@ -37,9 +38,9 @@ class RegistrationForm extends StatelessWidget {
             const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
             const Padding(padding: EdgeInsets.all(12)),
-            _ProfessionInput(),
-            const Padding(padding: EdgeInsets.all(12)),
             RoleDropdown(),
+            const Padding(padding: EdgeInsets.all(12)),
+            _ProfessionInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _RegisterButton(),
             const Padding(padding: EdgeInsets.all(12)),
@@ -96,18 +97,20 @@ class _ProfessionInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegistrationBloc, RegistrationBlocState>(
-      buildWhen: (previous, current) =>
-          previous.profession != current.profession,
+      buildWhen: (previous, current) => previous.role != current.role,
       builder: (context, state) {
-        return TextField(
-          key: const Key('RegistrationForm_professionInput_textField'),
-          onChanged: (prosession) => context
-              .read<RegistrationBloc>()
-              .add(RegisterProfessionChanged(prosession)),
-          decoration: InputDecoration(
-            labelText: 'profession',
-          ),
-        );
+        if (state.role == RoleModelKeys.doctor)
+          return TextField(
+            key: const Key('RegistrationForm_professionInput_textField'),
+            onChanged: (prosession) => context
+                .read<RegistrationBloc>()
+                .add(RegisterProfessionChanged(prosession)),
+            decoration: InputDecoration(
+              labelText: 'profession',
+            ),
+          );
+        else
+          return Container();
       },
     );
   }
