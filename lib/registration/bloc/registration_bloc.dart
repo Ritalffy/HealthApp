@@ -4,13 +4,19 @@ import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:health_app/registration/models/models.dart';
 import 'package:health_app/registration/models/profession.dart';
+import 'package:register_repository/register_repository.dart';
 
 part 'registration_bloc_event.dart';
 part 'registration_bloc_state.dart';
 
 class RegistrationBloc
     extends Bloc<RegistrationBlocEvent, RegistrationBlocState> {
-  RegistrationBloc() : super(RegistrationBlocInitial());
+  RegistrationBloc({
+    required RegisterRepository registerRepository,
+  })   : _registerRepository = registerRepository,
+        super(const RegistrationBlocState());
+
+  final RegisterRepository _registerRepository;
 
   @override
   Stream<RegistrationBlocState> mapEventToState(
@@ -73,12 +79,12 @@ class RegistrationBloc
     if (state.status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
       try {
-        // await _registerRepository.register(
-        //   email: state.email.value,
-        //   password: state.password.value,
-        //   role: state.role
-        //   profession: state.profession?.value,
-        // );
+        await _registerRepository.register(
+          email: state.email.value,
+          password: state.password.value,
+          role: state.role,
+          profession: state.profession?.value,
+        );
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception catch (_) {
         yield state.copyWith(status: FormzStatus.submissionFailure);
