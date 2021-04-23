@@ -13,7 +13,6 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Register')),
       body: BlocProvider(
-          // TODO: (Wiktoria) provide registration repository
           create: (context) => RegistrationBloc(),
           child: Padding(
             padding: const EdgeInsets.all(12.0),

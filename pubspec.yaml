@@ -15,6 +15,9 @@ dependencies:
   flutter_bloc: ^7.0.0
   authentication_repository:
     path: packages/authentication_repository
+    
+  register_repository:
+    path: packages/register_repository
 
   user_repository:
     path: packages/user_repository

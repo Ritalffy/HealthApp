@@ -25,6 +25,24 @@ class RegisterPasswordChanged extends RegistrationBlocEvent {
   List<Object> get props => [password];
 }
 
+class RegisterRoleChanged extends RegistrationBlocEvent {
+  const RegisterRoleChanged(this.role);
+
+  final String role;
+
+  @override
+  List<Object> get props => [role];
+}
+
+class RegisterProfessionChanged extends RegistrationBlocEvent {
+  const RegisterProfessionChanged(this.profession);
+
+  final String profession;
+
+  @override
+  List<Object> get props => [profession];
+}
+
 class RegisterSubmitted extends RegistrationBlocEvent {
   const RegisterSubmitted();
 }
