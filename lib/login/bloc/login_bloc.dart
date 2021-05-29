@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:health_app/login/login.dart';
 import 'package:formz/formz.dart';
@@ -58,13 +59,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async* {
     if (state.status.isValidated) {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
+
       try {
         await _authenticationRepository.logIn(
           email: state.email.value,
           password: state.password.value,
         );
         yield state.copyWith(status: FormzStatus.submissionSuccess);
-      } on Exception catch (_) {
+      } on DioError catch (err) {
+        print(err.response);
+        yield state.copyWith(status: FormzStatus.submissionFailure);
+      } on Exception catch (e) {
+        print(e.toString());
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }

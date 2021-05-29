@@ -1,9 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:health_api/health_api.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, logout }
 
 class AuthenticationRepository {
+  final HealthApi api;
   final _controller = StreamController<AuthenticationStatus>();
+
+  AuthenticationRepository({required this.api});
 
   Stream<AuthenticationStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
@@ -15,13 +21,21 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    await Future.delayed(
-      const Duration(milliseconds: 300),
-      () => _controller.add(AuthenticationStatus.authenticated),
+    print(email);
+    print(password);
+    final response = await api.client.post<dynamic>(
+      'authenticate',
+      data: jsonEncode(<String, String>{
+        'username': email,
+        'password': password,
+      }),
     );
+    print(response.statusCode);
+    print(response.statusMessage);
   }
 
   void logOut() {
+    api.removeAuthHeader();
     _controller.add(AuthenticationStatus.logout);
   }
 
