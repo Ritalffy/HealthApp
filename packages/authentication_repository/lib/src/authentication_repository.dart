@@ -21,17 +21,13 @@ class AuthenticationRepository {
     required String email,
     required String password,
   }) async {
-    print(email);
-    print(password);
-    final response = await api.client.post<dynamic>(
+    await api.client.post<dynamic>(
       'authenticate',
       data: jsonEncode(<String, String>{
         'username': email,
         'password': password,
       }),
     );
-    print(response.statusCode);
-    print(response.statusMessage);
   }
 
   void logOut() {

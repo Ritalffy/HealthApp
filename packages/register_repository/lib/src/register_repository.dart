@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:health_api/health_api.dart';
 
 enum RegisterStatus {
   unknown,
@@ -6,8 +9,9 @@ enum RegisterStatus {
 }
 
 class RegisterRepository {
+  final HealthApi api;
   final _controller = StreamController<RegisterStatus>();
-
+  RegisterRepository({required this.api});
   Stream<RegisterStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
     yield RegisterStatus.unknown;
@@ -20,9 +24,12 @@ class RegisterRepository {
     required String role,
     String? profession,
   }) async {
-    await Future.delayed(
-      const Duration(milliseconds: 300),
-      () => _controller.add(RegisterStatus.registered),
+    await api.client.post<dynamic>(
+      'user',
+      data: jsonEncode(<String, String>{
+        'username': email,
+        'password': password,
+      }),
     );
   }
 

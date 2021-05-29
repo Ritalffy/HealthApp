@@ -14,8 +14,9 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Register')),
       body: BlocProvider(
-          create: (context) =>
-              RegistrationBloc(registerRepository: RegisterRepository()),
+          create: (context) => RegistrationBloc(
+              registerRepository:
+                  RepositoryProvider.of<RegisterRepository>(context)),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: RegistrationForm(),
