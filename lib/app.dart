@@ -1,55 +1,59 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_api/health_api.dart';
+import 'package:health_app/app_view.dart';
 import 'package:health_app/blocs/authentication/bloc/authentication_bloc.dart';
-import 'package:health_app/utils/navigation/routes.dart';
-
+import 'package:health_app/registration/bloc/registration_bloc.dart';
+import 'package:register_repository/register_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
-class App extends StatelessWidget {
-  const App({
-    Key? key,
-    required this.authenticationRepository,
-    required this.userRepository,
-  }) : super(key: key);
-
-  final AuthenticationRepository authenticationRepository;
-  final UserRepository userRepository;
+class App extends StatefulWidget {
+  final String apiUrl;
+  const App({required this.apiUrl});
 
   @override
-  Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: authenticationRepository,
-      child: BlocProvider(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: authenticationRepository,
-          userRepository: userRepository,
-        ),
-        child: AppView(),
-      ),
-    );
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  late HealthApi _api;
+  late AuthenticationRepository _authenticationRepository;
+  late RegisterRepository _registerRepository;
+  late UserRepository _userRepository;
+
+  @override
+  void initState() {
+    _api = HealthApi(url: widget.apiUrl);
+    _authenticationRepository = AuthenticationRepository(api: _api);
+    _userRepository = UserRepository();
+    _registerRepository = RegisterRepository(api: _api);
+
+    super.initState();
   }
-}
 
-class AppView extends StatefulWidget {
-  @override
-  _AppViewState createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      builder: (context, child) {
-        return Scaffold(
-          key: _scaffoldKey,
-          body: child,
-          resizeToAvoidBottomInset: false,
-        );
-      },
-      onGenerateRoute: Routes.generateRoute,
-      initialRoute: Routes.start,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(
+          value: _authenticationRepository,
+          child: BlocProvider(
+            create: (_) => AuthenticationBloc(
+              authenticationRepository: _authenticationRepository,
+              userRepository: _userRepository,
+            ),
+          ),
+        ),
+        RepositoryProvider.value(
+          value: _registerRepository,
+          child: BlocProvider(
+            create: (_) =>
+                RegistrationBloc(registerRepository: _registerRepository),
+          ),
+        )
+      ],
+      child: AppView(),
     );
   }
 }

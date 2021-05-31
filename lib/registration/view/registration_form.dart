@@ -26,7 +26,7 @@ class RegistrationForm extends StatelessWidget {
               const SnackBar(content: Text('Registration Sucessful')),
             );
           Navigator.of(context, rootNavigator: true)
-              .pushNamedAndRemoveUntil<void>(Routes.home, (route) => false);
+              .pushNamedAndRemoveUntil<void>(Routes.start, (route) => false);
         }
       },
       child: Align(

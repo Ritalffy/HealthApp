@@ -2,5 +2,9 @@ name: authentication_repository
 description: Dart package which manages the authentication domain.
 publish_to: none
 
+dependencies:
+  health_api:
+    path: ../health_api
 environment:
   sdk: ">=2.12.0-0 <3.0.0"
+

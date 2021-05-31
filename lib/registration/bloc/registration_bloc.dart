@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
@@ -86,7 +87,11 @@ class RegistrationBloc
           profession: state.profession?.value,
         );
         yield state.copyWith(status: FormzStatus.submissionSuccess);
-      } on Exception catch (_) {
+      } on DioError catch (err) {
+        print(err.response);
+        yield state.copyWith(status: FormzStatus.submissionFailure);
+      } on Exception catch (e) {
+        print(e.toString());
         yield state.copyWith(status: FormzStatus.submissionFailure);
       }
     }

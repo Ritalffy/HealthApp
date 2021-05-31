@@ -13,6 +13,7 @@ dependencies:
 
   formz: ^0.4.0-nullsafety.0
   table_calendar: ^3.0.0
+  dio: ^4.0.0
   flutter_bloc: ^7.0.0
   authentication_repository:
     path: packages/authentication_repository
@@ -22,6 +23,9 @@ dependencies:
 
   user_repository:
     path: packages/user_repository
+
+  health_api:
+    path: packages/health_api
     
 
 dev_dependencies:
