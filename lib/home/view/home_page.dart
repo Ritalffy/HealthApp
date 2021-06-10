@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       listener: (context, state) {
         if (state.status == AuthenticationStatus.logout) {
           Navigator.of(context, rootNavigator: true)
-              .pushNamedAndRemoveUntil(Routes.start, (route) => false);
+              .pushNamedAndRemoveUntil(RoutesName.start, (route) => false);
         }
       },
       child: Scaffold(

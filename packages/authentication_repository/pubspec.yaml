@@ -3,6 +3,7 @@ description: Dart package which manages the authentication domain.
 publish_to: none
 
 dependencies:
+  dio: ^4.0.0
   health_api:
     path: ../health_api
 environment:
