@@ -18,7 +18,7 @@ class LoginForm extends StatelessWidget {
         }
         if (state.status.isSubmissionSuccess) {
           Navigator.of(context, rootNavigator: true)
-              .pushNamedAndRemoveUntil<void>(Routes.home, (route) => false);
+              .pushNamedAndRemoveUntil<void>(RoutesName.home, (route) => false);
         }
       },
       child: Align(
@@ -108,7 +108,7 @@ class _RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () => Navigator.of(context, rootNavigator: true)
-            .pushNamed<void>(Routes.register),
+            .pushNamed<void>(RoutesName.register),
         child: Text('Create account'));
   }
 }
