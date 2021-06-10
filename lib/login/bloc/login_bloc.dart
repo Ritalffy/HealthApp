@@ -61,10 +61,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(status: FormzStatus.submissionInProgress);
 
       try {
-        await _authenticationRepository.logIn(
+        final response = await _authenticationRepository.logIn(
           email: state.email.value,
           password: state.password.value,
         );
+
+        _authenticationRepository.setToken(response.token);
+
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on DioError catch (err) {
         print(err.response);
