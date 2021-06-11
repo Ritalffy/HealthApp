@@ -23,16 +23,16 @@ class DashboardRoutes {
     switch (settings.name) {
       case DashboardRoutes.home:
         return MaterialPageRoute<void>(
-          builder: (_) =>
-              BlocProvider.value(value: authenticationBloc, child: HomePage()),
-          settings: settings,
-        );
+            builder: (_) => HomePage(), settings: settings);
       case appointments:
         return MaterialPageRoute<void>(
             builder: (_) => AppointmentsPage(), settings: settings);
       case setting:
         return MaterialPageRoute<void>(
-            builder: (_) => SettingsPage(), settings: settings);
+          builder: (_) => BlocProvider.value(
+              value: authenticationBloc, child: SettingsPage()),
+          settings: settings,
+        );
 
       default:
         throw Exception('No route defined for "${settings.name}"');
