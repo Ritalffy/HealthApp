@@ -66,6 +66,7 @@ class _AppState extends State<App> {
         )
       ],
       child: MaterialApp(
+        theme: ThemeData(backgroundColor: Color.fromRGBO(240, 240, 240, 0.4)),
         builder: (context, child) {
           return Scaffold(
             body: child,

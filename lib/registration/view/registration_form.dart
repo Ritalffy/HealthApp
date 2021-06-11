@@ -6,6 +6,7 @@ import 'package:health_app/registration/models/role_model_keys.dart';
 
 import 'package:health_app/registration/view/widgets/role_dropdown.dart';
 import 'package:health_app/utils/navigation/routes.dart';
+import 'package:health_app/widgets/primary_button.dart';
 
 class RegistrationForm extends StatelessWidget {
   @override
@@ -32,9 +33,9 @@ class RegistrationForm extends StatelessWidget {
       },
       child: Align(
         alignment: const Alignment(0, -1 / 3),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: ListView(
           children: [
+            const Padding(padding: EdgeInsets.all(40)),
             _EmailInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
@@ -42,9 +43,17 @@ class RegistrationForm extends StatelessWidget {
             RoleDropdown(),
             const Padding(padding: EdgeInsets.all(12)),
             _ProfessionInput(),
+            const Padding(padding: EdgeInsets.all(130)),
+            const Divider(thickness: 2),
             const Padding(padding: EdgeInsets.all(12)),
-            _RegisterButton(),
-            const Padding(padding: EdgeInsets.all(12)),
+            Row(
+              children: [
+                Expanded(
+                  child: _RegisterButton(),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.all(40)),
           ],
         ),
       ),
@@ -59,7 +68,6 @@ class _EmailInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextField(
-          key: const Key('RegistrationForm_emailInput_textField'),
           onChanged: (email) =>
               context.read<RegistrationBloc>().add(RegisterEmailChanged(email)),
           decoration: InputDecoration(
@@ -79,7 +87,6 @@ class _PasswordInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
-          key: const Key('RegistrationForm_passwordInput_textField'),
           onChanged: (password) => context
               .read<RegistrationBloc>()
               .add(RegisterPasswordChanged(password)),
@@ -125,9 +132,8 @@ class _RegisterButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isSubmissionInProgress
             ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('RegistrationForm_continue_raisedButton'),
-                child: const Text('Register'),
+            : PrimaryButton(
+                label: 'Register',
                 onPressed: state.status.isValidated
                     ? () {
                         context
