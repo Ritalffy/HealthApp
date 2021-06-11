@@ -7,8 +7,11 @@ class AppointmentsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Appointments screen'),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Appointments')),
+      body: Center(
+        child: Text('Appointments screen'),
+      ),
     );
   }
 }
