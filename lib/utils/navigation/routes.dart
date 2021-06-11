@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/blocs/authentication/bloc/authentication_bloc.dart';
-import 'package:health_app/home/home.dart';
+import 'package:health_app/dashboard/dashboard_page.dart';
 import 'package:health_app/loader/loader.dart';
 import 'package:health_app/login/login.dart';
 import 'package:health_app/registration/bloc/registration_bloc.dart';
@@ -9,7 +9,7 @@ import 'package:health_app/registration/view/registration_page.dart';
 
 class RoutesName {
   static const String start = '/';
-  static const String home = '/home';
+  static const String dashboard = '/dashboard';
 
   static const String register = '/register';
   static const String loading = '/loading';
@@ -31,10 +31,10 @@ class Routes {
               BlocProvider.value(value: authenticationBloc, child: LoginPage()),
           settings: settings,
         );
-      case RoutesName.home:
+      case RoutesName.dashboard:
         return MaterialPageRoute<void>(
-          builder: (_) =>
-              BlocProvider.value(value: authenticationBloc, child: HomePage()),
+          builder: (_) => BlocProvider.value(
+              value: authenticationBloc, child: DashboardPage()),
           settings: settings,
         );
       case RoutesName.loading:

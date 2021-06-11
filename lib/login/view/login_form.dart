@@ -18,7 +18,8 @@ class LoginForm extends StatelessWidget {
         }
         if (state.status.isSubmissionSuccess) {
           Navigator.of(context, rootNavigator: true)
-              .pushNamedAndRemoveUntil<void>(RoutesName.home, (route) => false);
+              .pushNamedAndRemoveUntil<void>(
+                  RoutesName.dashboard, (route) => false);
         }
       },
       child: Align(
