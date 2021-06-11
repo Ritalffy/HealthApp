@@ -18,13 +18,13 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     } else if (event is AppointmentDateChanged) {
       yield _mapAppointmentDateChangedToState(event, state);
     }
-    throw UnsupportedError(event.toString());
   }
 
   AppointmentState _mapProfessionChangedToState(
     ProfessionChanged event,
     AppointmentState state,
   ) {
+    print('reveived event ${event.profession}');
     return state.copyWith(selectedDoctorProffesion: event.profession);
   }
 
@@ -32,6 +32,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     AppointmentDateChanged event,
     AppointmentState state,
   ) {
+    print('reveived event ${event.appointmentDate}');
     return state.copyWith(appointmentDate: event.appointmentDate);
   }
 }

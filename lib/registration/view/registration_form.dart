@@ -35,17 +35,17 @@ class RegistrationForm extends StatelessWidget {
         alignment: const Alignment(0, -1 / 3),
         child: ListView(
           children: [
-            const Padding(padding: EdgeInsets.all(40)),
+            const SizedBox(height: 40),
             _EmailInput(),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             _PasswordInput(),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             RoleDropdown(),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             _ProfessionInput(),
-            const Padding(padding: EdgeInsets.all(130)),
+            const SizedBox(height: 130),
             const Divider(thickness: 2),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
@@ -53,7 +53,7 @@ class RegistrationForm extends StatelessWidget {
                 ),
               ],
             ),
-            const Padding(padding: EdgeInsets.all(40)),
+            const SizedBox(height: 40),
           ],
         ),
       ),
