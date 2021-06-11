@@ -6,7 +6,7 @@ import 'package:health_app/registration/models/role_model_keys.dart';
 
 import 'package:health_app/registration/view/widgets/role_dropdown.dart';
 import 'package:health_app/utils/navigation/routes.dart';
-import 'package:health_app/widgets/primary_button.dart';
+import 'package:health_app/widgets/buttons/primary_button.dart';
 
 class RegistrationForm extends StatelessWidget {
   @override

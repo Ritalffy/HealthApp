@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/login/login.dart';
 import 'package:health_app/utils/navigation/routes.dart';
-import 'package:health_app/widgets/primary_button.dart';
+import 'package:health_app/widgets/buttons/primary_button.dart';
 
 class LoginForm extends StatelessWidget {
   @override
