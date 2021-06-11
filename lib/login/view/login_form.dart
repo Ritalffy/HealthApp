@@ -3,6 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/login/login.dart';
 import 'package:health_app/utils/navigation/routes.dart';
+import 'package:health_app/widgets/primary_button.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -27,13 +28,27 @@ class LoginForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Padding(padding: EdgeInsets.all(40)),
             _UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
+            Spacer(),
+            const Divider(thickness: 2),
             const Padding(padding: EdgeInsets.all(12)),
-            _LoginButton(),
+            Row(
+              children: [
+                Expanded(child: _LoginButton()),
+              ],
+            ),
             const Padding(padding: EdgeInsets.all(12)),
-            _RegisterButton(),
+            Row(
+              children: [
+                Expanded(
+                  child: _RegisterButton(),
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.all(40)),
           ],
         ),
       ),
@@ -89,10 +104,9 @@ class _LoginButton extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('loginForm_continue_raisedButton'),
-                child: const Text('Login'),
+            ? const CircularProgressIndicator.adaptive()
+            : PrimaryButton(
+                label: 'Login',
                 onPressed: state.status.isValidated
                     ? () {
                         context.read<LoginBloc>().add(const LoginSubmitted());
@@ -107,9 +121,10 @@ class _LoginButton extends StatelessWidget {
 class _RegisterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () => Navigator.of(context, rootNavigator: true)
-            .pushNamed<void>(RoutesName.register),
-        child: Text('Create account'));
+    return PrimaryButton(
+      label: 'Create account',
+      onPressed: () => Navigator.of(context, rootNavigator: true)
+          .pushNamed<void>(RoutesName.register),
+    );
   }
 }
