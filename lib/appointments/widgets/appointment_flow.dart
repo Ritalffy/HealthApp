@@ -6,7 +6,7 @@ import 'package:health_app/widgets/primary_button.dart';
 // TODO:(Wiktoria) replace mockable flow
 // ignore: must_be_immutable
 class AppointmentFlow extends StatefulWidget {
-  List<String> professions = ['ginekolog', 'kardiolog', 'lekarz ogolny'];
+  List<String> professions = ['gynecologist', 'cardiologist', 'general doctor'];
   AppointmentFlow({Key? key}) : super(key: key);
 
   @override
