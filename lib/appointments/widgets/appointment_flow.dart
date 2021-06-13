@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/appointments/widgets/profession_dropdown.dart';
+import 'package:health_app/appointments/widgets/action_buttons_section.dart';
+import 'package:health_app/appointments/widgets/appointment_view.dart';
+import 'package:health_app/appointments/widgets/select_doctor_view.dart';
 import 'package:health_app/appointments/widgets/step_indicator.dart';
-import 'package:health_app/widgets/buttons/primary_button.dart';
 
 // TODO:(Wiktoria) replace mockable flow
 // ignore: must_be_immutable
 class AppointmentFlow extends StatefulWidget {
   List<String> professions = ['gynecologist', 'cardiologist', 'general doctor'];
-  Map<String, bool> dates = {
-    '10:00 AM 05/11': false,
-    '10:30 AM 05/11': false,
-    '11:00 AM 05/11': false,
-    '11:30 AM 05/11': false,
-    '12:00 PM 05/12': false,
-    '12:30 PM 05/12': false,
-    '1:30 PM 05/12': false,
-    '2:00 PM 05/12': false,
-  };
+  List<String> dates = [
+    '10:00 AM 05/11',
+    '10:30 AM 05/11',
+    '11:00 AM 05/11',
+    '11:30 AM 05/11',
+    '12:00 PM 05/12',
+    '12:30 PM 05/12',
+    '1:30 PM 05/12',
+    '2:00 PM 05/12',
+  ];
   AppointmentFlow({Key? key}) : super(key: key);
 
   @override
@@ -25,6 +26,7 @@ class AppointmentFlow extends StatefulWidget {
 
 class _AppointmentFlowState extends State<AppointmentFlow> {
   int currentStep = 1;
+  int selectedAppointmentIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -37,53 +39,19 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
         const SizedBox(height: 100),
         StapIndicator(currentStep: currentStep),
         const SizedBox(height: 50),
-        Text(
-          currentStep == 1
-              ? 'Select doctor\'s profession'
-              : 'Select appointment slot',
-          style: TextStyle(fontSize: 20),
-        ),
-        const SizedBox(height: 40),
         currentStep == 1
-            ? ProfessionDropdown(professions: widget.professions)
-            : ListView.separated(
-                itemCount: widget.dates.length,
-                physics: const NeverScrollableScrollPhysics(),
-                clipBehavior: Clip.none,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  final keys = widget.dates.keys.toList();
-                  return PrimaryButton(
-                    isSelected: widget.dates[keys[index]] ?? false,
-                    label: keys[index],
-                    onPressed: () {
-                      onSelectButton(keys[index]);
-                      print('future change date event');
-                    },
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(height: 12),
+            ? SelectDoctorsView(professions: widget.professions)
+            : AppointmentsView(
+                selectedAppointmentIndex: selectedAppointmentIndex,
+                dates: widget.dates,
+                onPressed: onSelectButton,
               ),
         const SizedBox(height: 40),
-        Row(
-          children: [
-            currentStep != 1
-                ? Expanded(
-                    child: PrimaryButton(
-                    label: 'Previous',
-                    onPressed: _onPrevPressed,
-                  ))
-                : Spacer(),
-            const SizedBox(width: 24),
-            Expanded(
-              child: PrimaryButton(
-                label: 'Next',
-                onPressed: _onNextPressed,
-              ),
-            )
-          ],
-        )
+        ActionButtonSection(
+          currentStep: currentStep,
+          onNextPressed: _onNextPressed,
+          onPrevPressed: _onPrevPressed,
+        ),
       ],
     );
   }
@@ -100,10 +68,10 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
     });
   }
 
-  void onSelectButton(String value) {
+  void onSelectButton(int index) {
+    print('wooo');
     setState(() {
-      bool lastAnswer = widget.dates[value] ?? false;
-      widget.dates[value] = !lastAnswer;
+      selectedAppointmentIndex = index;
     });
   }
 }
