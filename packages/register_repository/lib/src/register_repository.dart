@@ -24,7 +24,7 @@ class RegisterRepository {
     required String role,
     String? profession,
   }) async {
-    final response = await api.client.post<dynamic>(
+    await api.client.post<dynamic>(
       'user',
       data: jsonEncode(<String, String>{
         'email': email,
@@ -33,9 +33,6 @@ class RegisterRepository {
         'profession': profession ?? ' ',
       }),
     );
-    print(role);
-    print('woo');
-    print(response.data);
   }
 
   void dispose() => _controller.close();

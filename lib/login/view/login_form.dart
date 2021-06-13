@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/login/login.dart';
 import 'package:health_app/utils/navigation/routes.dart';
-import 'package:health_app/widgets/primary_button.dart';
+import 'package:health_app/widgets/buttons/primary_button.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -28,19 +28,19 @@ class LoginForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(padding: EdgeInsets.all(40)),
+            const SizedBox(height: 40),
             _UsernameInput(),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             _PasswordInput(),
             Spacer(),
             const Divider(thickness: 2),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(child: _LoginButton()),
               ],
             ),
-            const Padding(padding: EdgeInsets.all(12)),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
@@ -48,7 +48,7 @@ class LoginForm extends StatelessWidget {
                 ),
               ],
             ),
-            const Padding(padding: EdgeInsets.all(40)),
+            const SizedBox(height: 40),
           ],
         ),
       ),
