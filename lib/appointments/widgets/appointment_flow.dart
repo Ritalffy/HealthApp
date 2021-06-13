@@ -69,7 +69,6 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
   }
 
   void onSelectButton(int index) {
-    print('wooo');
     setState(() {
       selectedAppointmentIndex = index;
     });

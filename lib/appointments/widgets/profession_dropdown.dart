@@ -23,7 +23,6 @@ class _ProfessionDropdownState extends State<ProfessionDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.professions.toString());
     return BlocBuilder<AppointmentBloc, AppointmentState>(
       builder: (context, state) {
         return Container(
