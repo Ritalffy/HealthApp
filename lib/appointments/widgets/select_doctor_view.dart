@@ -10,11 +10,13 @@ class SelectDoctorsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Select doctor\'s profession',
           style: TextStyle(fontSize: 20),
         ),
+        const SizedBox(height: 40),
         ProfessionDropdown(professions: professions),
       ],
     );
