@@ -85,8 +85,6 @@ class RegistrationBloc
           await _registerRepository.getProfessions();
 
       yield state.copyWith(avaiableProfessions: professions);
-
-      yield state.copyWith(professionStatus: ProfessionStatus.fetched);
     } on DioError catch (err) {
       print(err.response);
       yield state.copyWith(professionStatus: ProfessionStatus.error);

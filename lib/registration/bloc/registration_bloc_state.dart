@@ -34,8 +34,8 @@ class RegistrationBlocState extends Equatable {
     Password? password,
     String? profession,
     String? role,
-    ProfessionStatus? professionStatus,
     List<String>? avaiableProfessions,
+    ProfessionStatus? professionStatus,
   }) {
     return RegistrationBlocState(
       status: status ?? this.status,
@@ -54,7 +54,7 @@ class RegistrationBlocState extends Equatable {
         email,
         password,
         role,
-        profession ?? '',
         professionStatus,
+        avaiableProfessions,
       ];
 }
