@@ -16,6 +16,10 @@ class ProfessionChanged extends AppointmentEvent {
   List<Object> get props => [profession];
 }
 
+class FetchProfessions extends AppointmentEvent {
+  const FetchProfessions();
+}
+
 class AppointmentDateChanged extends AppointmentEvent {
   const AppointmentDateChanged(this.appointmentDate);
 

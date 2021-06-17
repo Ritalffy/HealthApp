@@ -25,8 +25,8 @@ class ActionButtonSection extends StatelessWidget {
         const SizedBox(width: 24),
         Expanded(
           child: PrimaryButton(
-            isSelected: currentStep != 1,
-            label: currentStep == 1 ? 'Next' : 'Submit',
+            isSelected: currentStep == 3,
+            label: currentStep != 3 ? 'Next' : 'Submit',
             onPressed: onNextPressed,
           ),
         )

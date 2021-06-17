@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
 import 'package:health_app/patient_appointments/widgets/action_buttons_section.dart';
 import 'package:health_app/patient_appointments/widgets/appointment_view.dart';
+import 'package:health_app/patient_appointments/widgets/initial_view.dart';
 import 'package:health_app/patient_appointments/widgets/select_doctor_view.dart';
 import 'package:health_app/patient_appointments/widgets/step_indicator.dart';
 
@@ -39,13 +40,16 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
         const SizedBox(height: 100),
         StapIndicator(currentStep: currentStep),
         const SizedBox(height: 50),
-        currentStep == 1
-            ? SelectDoctorsView(professions: widget.professions)
-            : AppointmentsView(
-                selectedAppointmentIndex: selectedAppointmentIndex,
-                dates: widget.dates,
-                onPressed: onSelectButton,
-              ),
+        if (currentStep == 1)
+          InitialView()
+        else if (currentStep == 2)
+          SelectDoctorsView(professions: widget.professions)
+        else
+          AppointmentsView(
+            selectedAppointmentIndex: selectedAppointmentIndex,
+            dates: widget.dates,
+            onPressed: onSelectButton,
+          ),
         const SizedBox(height: 40),
         ActionButtonSection(
           currentStep: currentStep,
@@ -57,14 +61,18 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
   }
 
   void _onNextPressed() {
+    if (currentStep == 1) {
+      context.read<AppointmentBloc>().add(const FetchProfessions());
+    }
+
     setState(() {
-      currentStep = 2;
+      currentStep++;
     });
   }
 
   void _onPrevPressed() {
     setState(() {
-      currentStep = 1;
+      currentStep--;
     });
   }
 
