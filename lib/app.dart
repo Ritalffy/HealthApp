@@ -37,8 +37,9 @@ class _AppState extends State<App> {
     _registrationBloc =
         RegistrationBloc(registerRepository: _registerRepository);
     _authenticationBloc = AuthenticationBloc(
-        authenticationRepository: _authenticationRepository,
-        userRepository: _userRepository);
+      authenticationRepository: _authenticationRepository,
+      userRepository: _userRepository,
+    );
 
     routes = Routes(
       registrationBloc: _registrationBloc,

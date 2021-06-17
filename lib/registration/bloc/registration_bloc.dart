@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:health_app/registration/models/models.dart';
-import 'package:health_app/registration/models/profession.dart';
+
 import 'package:register_repository/register_repository.dart';
 
 part 'registration_bloc_event.dart';
@@ -14,7 +14,7 @@ class RegistrationBloc
     extends Bloc<RegistrationBlocEvent, RegistrationBlocState> {
   RegistrationBloc({
     required RegisterRepository registerRepository,
-  })   : _registerRepository = registerRepository,
+  })  : _registerRepository = registerRepository,
         super(const RegistrationBlocState());
 
   final RegisterRepository _registerRepository;
@@ -31,6 +31,8 @@ class RegistrationBloc
       yield _mapProfessionChangedToState(event, state);
     } else if (event is RegisterRoleChanged) {
       yield* _mapRoleChangedToState(event, state);
+    } else if (event is DoctorRoleSelected) {
+      yield* _mapDoctorsRoleSelectedToState(event, state);
     } else if (event is RegisterSubmitted) {
       yield* _mapRegisterSubmittedToState(event, state);
     }
@@ -62,7 +64,7 @@ class RegistrationBloc
     RegisterProfessionChanged event,
     RegistrationBlocState state,
   ) {
-    final profession = Profession.dirty(event.profession);
+    final profession = event.profession;
     return state.copyWith(profession: profession);
   }
 
@@ -71,6 +73,24 @@ class RegistrationBloc
     RegistrationBlocState state,
   ) async* {
     yield state.copyWith(role: event.role);
+  }
+
+  Stream<RegistrationBlocState> _mapDoctorsRoleSelectedToState(
+    DoctorRoleSelected event,
+    RegistrationBlocState state,
+  ) async* {
+    yield state.copyWith(professionStatus: ProfessionStatus.loading);
+    try {
+      final List<String> professions =
+          await _registerRepository.getProfessions();
+
+      yield state.copyWith(avaiableProfessions: professions);
+
+      yield state.copyWith(professionStatus: ProfessionStatus.fetched);
+    } on DioError catch (err) {
+      print(err.response);
+      yield state.copyWith(professionStatus: ProfessionStatus.error);
+    }
   }
 
   Stream<RegistrationBlocState> _mapRegisterSubmittedToState(
@@ -84,7 +104,7 @@ class RegistrationBloc
           email: state.email.value,
           password: state.password.value,
           role: state.role,
-          profession: state.profession?.value,
+          profession: state.profession,
         );
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on DioError catch (err) {

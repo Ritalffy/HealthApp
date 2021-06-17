@@ -42,6 +42,9 @@ class _RoleDropdownState extends State<RoleDropdown> {
     });
     if (role != null) {
       context.read<RegistrationBloc>().add(RegisterRoleChanged(role));
+      if (role == 'doctor') {
+        context.read<RegistrationBloc>().add(DoctorRoleSelected());
+      }
     }
   }
 }

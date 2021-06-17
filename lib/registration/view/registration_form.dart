@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/registration/bloc/registration_bloc.dart';
-import 'package:health_app/registration/models/role_model_keys.dart';
+import 'package:health_app/registration/view/widgets/professions_dropdown.dart';
 
 import 'package:health_app/registration/view/widgets/role_dropdown.dart';
 import 'package:health_app/utils/navigation/routes.dart';
@@ -42,7 +42,7 @@ class RegistrationForm extends StatelessWidget {
             const SizedBox(height: 12),
             RoleDropdown(),
             const SizedBox(height: 12),
-            _ProfessionInput(),
+            ProfessionsDropdown(),
             const SizedBox(height: 130),
             const Divider(thickness: 2),
             const SizedBox(height: 12),
@@ -96,29 +96,6 @@ class _PasswordInput extends StatelessWidget {
             errorText: state.password.invalid ? 'invalid password' : null,
           ),
         );
-      },
-    );
-  }
-}
-
-class _ProfessionInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<RegistrationBloc, RegistrationBlocState>(
-      buildWhen: (previous, current) => previous.role != current.role,
-      builder: (context, state) {
-        if (state.role == RoleModelKeys.doctor)
-          return TextField(
-            key: const Key('RegistrationForm_professionInput_textField'),
-            onChanged: (prosession) => context
-                .read<RegistrationBloc>()
-                .add(RegisterProfessionChanged(prosession)),
-            decoration: InputDecoration(
-              labelText: 'profession',
-            ),
-          );
-        else
-          return Container();
       },
     );
   }
