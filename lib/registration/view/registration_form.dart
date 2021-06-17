@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/registration/bloc/registration_bloc.dart';
-import 'package:health_app/registration/view/widgets/professions_dropdown.dart';
 import 'package:health_app/registration/view/widgets/professions_register_wrapper.dart';
 
 import 'package:health_app/registration/view/widgets/role_dropdown.dart';
