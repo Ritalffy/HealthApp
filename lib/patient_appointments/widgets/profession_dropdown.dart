@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:health_app/appointments/bloc/appointment_bloc.dart';
+import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
 
 class ProfessionDropdown extends StatefulWidget {
   final List<String> professions;

@@ -1,11 +1,11 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:health_app/appointments/bloc/appointment_bloc.dart';
-import 'package:health_app/appointments/widgets/appointment_flow.dart';
+import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
+import 'package:health_app/patient_appointments/widgets/appointment_flow.dart';
 
-class AppointmentsPage extends StatelessWidget {
-  const AppointmentsPage({
+class PatientAppointmentsPage extends StatelessWidget {
+  const PatientAppointmentsPage({
     Key? key,
   }) : super(key: key);
 

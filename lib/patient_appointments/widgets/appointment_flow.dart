@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/appointments/bloc/appointment_bloc.dart';
-import 'package:health_app/appointments/widgets/action_buttons_section.dart';
-import 'package:health_app/appointments/widgets/appointment_view.dart';
-import 'package:health_app/appointments/widgets/select_doctor_view.dart';
-import 'package:health_app/appointments/widgets/step_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
+import 'package:health_app/patient_appointments/widgets/action_buttons_section.dart';
+import 'package:health_app/patient_appointments/widgets/appointment_view.dart';
+import 'package:health_app/patient_appointments/widgets/select_doctor_view.dart';
+import 'package:health_app/patient_appointments/widgets/step_indicator.dart';
 
 class AppointmentFlow extends StatefulWidget {
   List<String> professions = ['gynecologist', 'cardiologist', 'general doctor'];

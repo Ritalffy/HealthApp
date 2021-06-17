@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_app/appointments/widgets/profession_dropdown.dart';
+import 'package:health_app/patient_appointments/widgets/profession_dropdown.dart';
 
 class SelectDoctorsView extends StatelessWidget {
   final List<String> professions;
