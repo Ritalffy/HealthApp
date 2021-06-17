@@ -4,6 +4,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:health_app/login/login.dart';
 import 'package:formz/formz.dart';
 
@@ -13,7 +14,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required AuthenticationRepository authenticationRepository,
-  })   : _authenticationRepository = authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
         super(const LoginState());
 
   final AuthenticationRepository _authenticationRepository;
@@ -65,8 +66,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           email: state.email.value,
           password: state.password.value,
         );
-
+        final _storage = FlutterSecureStorage();
         _authenticationRepository.setToken(response.token);
+        await _storage.write(key: 'role', value: response.role);
 
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on DioError catch (err) {
