@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
+import 'package:health_app/patient_appointments/patient_appointments_page.dart';
 
 part 'appointment_event.dart';
 part 'appointment_state.dart';
