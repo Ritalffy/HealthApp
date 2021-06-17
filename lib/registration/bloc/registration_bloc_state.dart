@@ -14,7 +14,7 @@ class RegistrationBlocState extends Equatable {
     this.status = FormzStatus.pure,
     this.email = const Email.pure(),
     this.password = const Password.pure(),
-    this.profession,
+    this.profession = '',
     this.professionStatus = ProfessionStatus.unused,
     this.role = 'patient',
     this.avaiableProfessions = const [],
@@ -23,7 +23,7 @@ class RegistrationBlocState extends Equatable {
   final FormzStatus status;
   final Email email;
   final Password password;
-  final String? profession;
+  final String profession;
   final String role;
   final ProfessionStatus professionStatus;
   final List<String> avaiableProfessions;
@@ -56,5 +56,6 @@ class RegistrationBlocState extends Equatable {
         role,
         professionStatus,
         avaiableProfessions,
+        profession,
       ];
 }

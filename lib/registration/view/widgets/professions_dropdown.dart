@@ -44,11 +44,9 @@ class _RegistrationProfessionDropdownState
     setState(() {
       dropdownValue = profession!;
     });
-    if (profession != null) {
-      context
-          .read<RegistrationBloc>()
-          .add(RegisterProfessionChanged(profession));
-    }
+    context
+        .read<RegistrationBloc>()
+        .add(RegisterProfessionChanged(dropdownValue));
   }
 
   List<DropdownMenuItem<String>> _buildDropDownMenuItems() {
