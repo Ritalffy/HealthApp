@@ -6,8 +6,6 @@ import 'package:health_app/appointments/widgets/select_doctor_view.dart';
 import 'package:health_app/appointments/widgets/step_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// TODO:(Wiktoria) replace mockable flow
-// ignore: must_be_immutable
 class AppointmentFlow extends StatefulWidget {
   List<String> professions = ['gynecologist', 'cardiologist', 'general doctor'];
   List<String> dates = [

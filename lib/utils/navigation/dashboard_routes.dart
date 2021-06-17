@@ -26,7 +26,11 @@ class DashboardRoutes {
             builder: (_) => HomePage(), settings: settings);
       case appointments:
         return MaterialPageRoute<void>(
-            builder: (_) => AppointmentsPage(), settings: settings);
+          builder: (_) => BlocProvider.value(
+              value: authenticationBloc, child: AppointmentsPage()),
+          settings: settings,
+        );
+
       case setting:
         return MaterialPageRoute<void>(
           builder: (_) => BlocProvider.value(

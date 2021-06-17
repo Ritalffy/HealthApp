@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
 
@@ -6,9 +7,12 @@ part 'appointment_event.dart';
 part 'appointment_state.dart';
 
 class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
-  // TODO: (Wiktoria) add new repository for appointments
-  AppointmentBloc() : super(AppointmentState());
+  AppointmentBloc({
+    required AuthenticationRepository authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
+        super(AppointmentState());
 
+  final AuthenticationRepository _authenticationRepository;
   @override
   Stream<AppointmentState> mapEventToState(
     AppointmentEvent event,
