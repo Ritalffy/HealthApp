@@ -34,6 +34,10 @@ class RegisterRoleChanged extends RegistrationBlocEvent {
   List<Object> get props => [role];
 }
 
+class DoctorRoleSelected extends RegistrationBlocEvent {
+  const DoctorRoleSelected();
+}
+
 class RegisterProfessionChanged extends RegistrationBlocEvent {
   const RegisterProfessionChanged(this.profession);
 

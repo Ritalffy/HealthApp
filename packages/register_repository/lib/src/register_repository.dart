@@ -35,5 +35,19 @@ class RegisterRepository {
     );
   }
 
+  Future<List<String>> getProfessions() async {
+    final response = await api.client.get<dynamic>(
+      'professions',
+    );
+    List<String> professions = [];
+    final lists = response.data;
+
+    for (final profession in lists) {
+      if (profession[0] is String) professions.add(profession[0]);
+    }
+
+    return professions;
+  }
+
   void dispose() => _controller.close();
 }
