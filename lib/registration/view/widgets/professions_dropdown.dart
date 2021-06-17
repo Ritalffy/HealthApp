@@ -2,53 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/registration/bloc/registration_bloc.dart';
 
-class ProfessionsDropdown extends StatefulWidget {
-  const ProfessionsDropdown({Key? key}) : super(key: key);
+class RegistrationProfessionDropdown extends StatefulWidget {
+  final List<String> professions;
+  const RegistrationProfessionDropdown({
+    required this.professions,
+  });
 
   @override
-  _ProfessionsDropdownState createState() => _ProfessionsDropdownState();
+  _RegistrationProfessionDropdownState createState() =>
+      _RegistrationProfessionDropdownState();
 }
 
-class _ProfessionsDropdownState extends State<ProfessionsDropdown> {
-  String dropdownValue = '';
+class _RegistrationProfessionDropdownState
+    extends State<RegistrationProfessionDropdown> {
+  late String dropdownValue;
+
+  @override
+  void initState() {
+    dropdownValue = widget.professions.first;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegistrationBloc, RegistrationBlocState>(
-      buildWhen: (previous, current) =>
-          previous.role != current.role ||
-          previous.avaiableProfessions.length !=
-              current.avaiableProfessions.length,
       builder: (context, state) {
-        if (state.role == 'doctor')
-          switch (state.professionStatus) {
-            case ProfessionStatus.loading:
-              return const CircularProgressIndicator.adaptive();
-
-            case ProfessionStatus.error:
-              return Text('error occurred');
-
-            case ProfessionStatus.fetched:
-              dropdownValue = state.avaiableProfessions[0];
-              return Container(
-                width: double.infinity,
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  onChanged: _onProfessionChanged,
-                  items: [
-                    for (final profession in state.avaiableProfessions)
-                      DropdownMenuItem(
-                          child: Text(profession), value: profession),
-                  ],
-                ),
-              );
-
-            default:
-              return Container();
-          }
-        else {
-          return Container();
-        }
+        return Container(
+          width: double.infinity,
+          child: DropdownButton<String>(
+            value: dropdownValue,
+            onChanged: _onProfessionChanged,
+            items: _buildDropDownMenuItems(),
+            icon: null,
+          ),
+        );
       },
     );
   }
@@ -62,5 +49,18 @@ class _ProfessionsDropdownState extends State<ProfessionsDropdown> {
           .read<RegistrationBloc>()
           .add(RegisterProfessionChanged(profession));
     }
+  }
+
+  List<DropdownMenuItem<String>> _buildDropDownMenuItems() {
+    List<DropdownMenuItem<String>> items = [];
+    for (final profession in widget.professions) {
+      items.add(
+        DropdownMenuItem(
+          child: Text(profession),
+          value: profession,
+        ),
+      );
+    }
+    return items;
   }
 }

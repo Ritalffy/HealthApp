@@ -3,6 +3,7 @@ import 'package:formz/formz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/registration/bloc/registration_bloc.dart';
 import 'package:health_app/registration/view/widgets/professions_dropdown.dart';
+import 'package:health_app/registration/view/widgets/professions_register_wrapper.dart';
 
 import 'package:health_app/registration/view/widgets/role_dropdown.dart';
 import 'package:health_app/utils/navigation/routes.dart';
@@ -42,7 +43,7 @@ class RegistrationForm extends StatelessWidget {
             const SizedBox(height: 12),
             RoleDropdown(),
             const SizedBox(height: 12),
-            ProfessionsDropdown(),
+            ProfessionsRegisterWrapper(),
             const SizedBox(height: 130),
             const Divider(thickness: 2),
             const SizedBox(height: 12),
