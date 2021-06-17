@@ -16,28 +16,39 @@ class _ProfessionsDropdownState extends State<ProfessionsDropdown> {
   Widget build(BuildContext context) {
     return BlocBuilder<RegistrationBloc, RegistrationBlocState>(
       buildWhen: (previous, current) =>
+          previous.role != current.role ||
           previous.avaiableProfessions.length !=
-          current.avaiableProfessions.length,
+              current.avaiableProfessions.length,
       builder: (context, state) {
-        if (state.avaiableProfessions.length > 0) {
-          dropdownValue = state.avaiableProfessions[0];
-          return Container(
-            width: double.infinity,
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              onChanged: _onProfessionChanged,
-              items: [
-                for (final profession in state.avaiableProfessions)
-                  DropdownMenuItem(child: Text(profession), value: profession),
-              ],
-            ),
-          );
-        } else if (state.professionStatus == ProfessionStatus.loading)
-          return CircularProgressIndicator();
-        else if (state.professionStatus == ProfessionStatus.error)
-          return Text('error occurred');
+        if (state.role == 'doctor')
+          switch (state.professionStatus) {
+            case ProfessionStatus.loading:
+              return const CircularProgressIndicator.adaptive();
 
-        return Text('XD');
+            case ProfessionStatus.error:
+              return Text('error occurred');
+
+            case ProfessionStatus.fetched:
+              dropdownValue = state.avaiableProfessions[0];
+              return Container(
+                width: double.infinity,
+                child: DropdownButton<String>(
+                  value: dropdownValue,
+                  onChanged: _onProfessionChanged,
+                  items: [
+                    for (final profession in state.avaiableProfessions)
+                      DropdownMenuItem(
+                          child: Text(profession), value: profession),
+                  ],
+                ),
+              );
+
+            default:
+              return Container();
+          }
+        else {
+          return Container();
+        }
       },
     );
   }

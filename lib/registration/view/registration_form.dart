@@ -46,13 +46,7 @@ class RegistrationForm extends StatelessWidget {
             const SizedBox(height: 130),
             const Divider(thickness: 2),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: _RegisterButton(),
-                ),
-              ],
-            ),
+            _RegisterButton(),
             const SizedBox(height: 40),
           ],
         ),
@@ -108,16 +102,22 @@ class _RegisterButton extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : PrimaryButton(
-                label: 'Register',
-                onPressed: state.status.isValidated
-                    ? () {
-                        context
-                            .read<RegistrationBloc>()
-                            .add(const RegisterSubmitted());
-                      }
-                    : null,
+            ? const CircularProgressIndicator.adaptive()
+            : Row(
+                children: [
+                  Expanded(
+                    child: PrimaryButton(
+                      label: 'Register',
+                      onPressed: state.status.isValidated
+                          ? () {
+                              context
+                                  .read<RegistrationBloc>()
+                                  .add(const RegisterSubmitted());
+                            }
+                          : null,
+                    ),
+                  ),
+                ],
               );
       },
     );
