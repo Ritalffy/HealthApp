@@ -8,7 +8,6 @@ import 'package:health_app/patient_appointments/widgets/select_doctor_view.dart'
 import 'package:health_app/patient_appointments/widgets/step_indicator.dart';
 
 class AppointmentFlow extends StatefulWidget {
-  List<String> professions = ['gynecologist', 'cardiologist', 'general doctor'];
   List<String> dates = [
     '10:00 AM 05/11',
     '10:30 AM 05/11',
@@ -43,7 +42,7 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
         if (currentStep == 1)
           InitialView()
         else if (currentStep == 2)
-          SelectDoctorsView(professions: widget.professions)
+          SelectDoctorsView()
         else
           AppointmentsView(
             selectedAppointmentIndex: selectedAppointmentIndex,
@@ -62,11 +61,10 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
 
   void _onNextPressed() {
     if (currentStep == 1) {
-      context.read<AppointmentBloc>().add(const FetchProfessions());
+      context.read<AppointmentBloc>().add(FetchProfessions());
     }
-
     setState(() {
-      currentStep++;
+      if (currentStep < 3) currentStep++;
     });
   }
 

@@ -9,13 +9,11 @@ class SelectDoctorWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppointmentBloc, AppointmentState>(
-      buildWhen: (previous, current) =>
-          previous.avaiableProfessions.length !=
-          current.avaiableProfessions.length,
+      buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
         switch (state.professionStatus) {
           case ProfessionStatus.loading:
-            return const CircularProgressIndicator.adaptive();
+            return Center(child: const CircularProgressIndicator.adaptive());
 
           case ProfessionStatus.error:
             return Text('error occurred');
