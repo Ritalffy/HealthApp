@@ -5,13 +5,13 @@ class StapIndicator extends StatelessWidget {
   final int currentStep;
 
   const StapIndicator({required this.currentStep})
-      : assert(currentStep >= 1 && currentStep <= 2,
+      : assert(currentStep >= 1 && currentStep <= 3,
             'current step must be in compartment');
 
   @override
   Widget build(BuildContext context) {
     return StepProgressIndicator(
-      totalSteps: 2,
+      totalSteps: 3,
       currentStep: currentStep,
       size: 10,
       selectedColor: Colors.blueAccent,

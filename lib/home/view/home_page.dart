@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/utils/navigation/dashboard_routes.dart';
+import 'package:health_app/widgets/cards/primary_card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,8 +12,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
-      body: Center(
-        child: Text('home'),
+      body: ListView(
+        padding: const EdgeInsets.all(12.0),
+        children: [
+          PrimaryCard(
+            description: 'Schedule your appointment',
+            iconData: Icons.schedule,
+            buttonLabel: 'Schedule',
+            onPressed: () => Navigator.of(context, rootNavigator: false)
+                .pushNamed<void>(DashboardRoutes.patientAppointments),
+          ),
+          const SizedBox(height: 12),
+          PrimaryCard(
+            description: 'Update your account information',
+            iconData: Icons.supervised_user_circle,
+            buttonLabel: 'Edit data',
+            onPressed: () => {},
+          ),
+        ],
       ),
     );
   }
