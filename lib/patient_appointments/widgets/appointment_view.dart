@@ -1,8 +1,9 @@
 import 'package:authentication_repository/models/appointment.dart';
 import 'package:flutter/material.dart';
 import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
-import 'package:health_app/widgets/buttons/primary_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_app/widgets/cards/primary_card.dart';
+import 'package:intl/intl.dart';
 
 typedef IntCallback = void Function(int);
 
@@ -35,10 +36,16 @@ class _AppointmentsViewState extends State<AppointmentsView> {
           clipBehavior: Clip.none,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
-            return PrimaryButton(
-              isSelected: selectedAppointmentIndex == index,
-              label: widget.appointments[index].doctorName,
-              onPressed: () => onSelectButton(index),
+            final appointment = widget.appointments[index];
+            return GestureDetector(
+              onTap: () => onSelectButton(index),
+              child: PrimaryCard(
+                isSelected: selectedAppointmentIndex == index,
+                buttonLabel: 'Schedule',
+                description:
+                    'Doctor: ${appointment.doctorName}\n${_startFormatter(appointment.start)} - ${_endFormatter(appointment.end)} ',
+                iconData: Icons.verified_user_sharp,
+              ),
             );
           },
           separatorBuilder: (BuildContext context, int index) =>
@@ -55,5 +62,15 @@ class _AppointmentsViewState extends State<AppointmentsView> {
 
     context.read<AppointmentBloc>().add(
         AppointmentDateChanged(widget.appointments[selectedAppointmentIndex]));
+  }
+
+  String _startFormatter(DateTime date) {
+    final dateFormat = DateFormat('MMMM d, yyyy HH:mm');
+    return dateFormat.format(date);
+  }
+
+  String _endFormatter(DateTime date) {
+    final dateFormat = DateFormat('HH:mm');
+    return dateFormat.format(date);
   }
 }
