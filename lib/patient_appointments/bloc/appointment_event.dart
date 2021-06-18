@@ -24,6 +24,10 @@ class FetchAppointments extends AppointmentEvent {
   const FetchAppointments();
 }
 
+class ScheduleAppointment extends AppointmentEvent {
+  const ScheduleAppointment();
+}
+
 class AppointmentDateChanged extends AppointmentEvent {
   const AppointmentDateChanged(this.appointment);
 

@@ -27,6 +27,8 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       yield* _mapFetchAppointmentsToState(event, state);
     } else if (event is FetchProfessions) {
       yield* _mapFetchProfessionsToState(event, state);
+    } else if (event is ScheduleAppointment) {
+      yield* _mapScheduleAppointmentToState(event, state);
     }
   }
 
@@ -49,6 +51,27 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     }
   }
 
+  Stream<AppointmentState> _mapScheduleAppointmentToState(
+    AppointmentEvent event,
+    AppointmentState state,
+  ) async* {
+    yield state.copyWith(
+        schedulingAppointmentStatus: SchedulingAppointmentStatus.loading);
+    try {
+      // TODO: add put visit 
+      //get user id
+      //put visit
+
+      yield state.copyWith(
+        schedulingAppointmentStatus: SchedulingAppointmentStatus.fetched,
+      );
+    } on DioError catch (err) {
+      print(err.response);
+      yield state.copyWith(
+          schedulingAppointmentStatus: SchedulingAppointmentStatus.error);
+    }
+  }
+
   Stream<AppointmentState> _mapFetchAppointmentsToState(
     AppointmentEvent event,
     AppointmentState state,
@@ -60,7 +83,6 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       final List<PatientAppointment> appointments =
           await _authenticationRepository
               .getAppointmentForProfession(state.selectedDoctorProffesion);
-      print(appointments.length);
 
       yield state.copyWith(
         avaiableAppointments: appointments,

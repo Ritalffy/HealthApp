@@ -14,6 +14,12 @@ enum AvaiableAppointmentStatus {
   fetched,
   error,
 }
+enum SchedulingAppointmentStatus {
+  unused,
+  loading,
+  fetched,
+  error,
+}
 
 class AppointmentState extends Equatable {
   final int appointmentId;
@@ -22,6 +28,7 @@ class AppointmentState extends Equatable {
   final List<PatientAppointment> avaiableAppointments;
   final AvaiableAppointmentStatus avaiableAppointmentStatus;
   final ProfessionStatus professionStatus;
+  final SchedulingAppointmentStatus schedulingAppointmentStatus;
 
   AppointmentState({
     this.appointmentId = 0,
@@ -30,6 +37,7 @@ class AppointmentState extends Equatable {
     this.avaiableAppointments = const [],
     this.avaiableAppointmentStatus = AvaiableAppointmentStatus.unused,
     this.professionStatus = ProfessionStatus.unused,
+    this.schedulingAppointmentStatus = SchedulingAppointmentStatus.unused,
   });
   AppointmentState copyWith({
     int? appointmentId,
@@ -38,16 +46,20 @@ class AppointmentState extends Equatable {
     List<PatientAppointment>? avaiableAppointments,
     AvaiableAppointmentStatus? avaiableAppointmentStatus,
     ProfessionStatus? professionStatus,
+    SchedulingAppointmentStatus? schedulingAppointmentStatus,
   }) {
     return AppointmentState(
-        appointmentId: appointmentId ?? this.appointmentId,
-        selectedDoctorProffesion:
-            selectedDoctorProffesion ?? this.selectedDoctorProffesion,
-        avaiableProfessions: avaiableProfessions ?? this.avaiableProfessions,
-        avaiableAppointments: avaiableAppointments ?? this.avaiableAppointments,
-        avaiableAppointmentStatus:
-            avaiableAppointmentStatus ?? this.avaiableAppointmentStatus,
-        professionStatus: professionStatus ?? this.professionStatus);
+      appointmentId: appointmentId ?? this.appointmentId,
+      selectedDoctorProffesion:
+          selectedDoctorProffesion ?? this.selectedDoctorProffesion,
+      avaiableProfessions: avaiableProfessions ?? this.avaiableProfessions,
+      avaiableAppointments: avaiableAppointments ?? this.avaiableAppointments,
+      avaiableAppointmentStatus:
+          avaiableAppointmentStatus ?? this.avaiableAppointmentStatus,
+      professionStatus: professionStatus ?? this.professionStatus,
+      schedulingAppointmentStatus:
+          schedulingAppointmentStatus ?? this.schedulingAppointmentStatus,
+    );
   }
 
   @override
@@ -58,5 +70,6 @@ class AppointmentState extends Equatable {
         avaiableAppointments,
         avaiableAppointmentStatus,
         professionStatus,
+        schedulingAppointmentStatus,
       ];
 }

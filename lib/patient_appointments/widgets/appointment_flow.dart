@@ -35,7 +35,7 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
           SelectDoctorsView()
         else
           AppointmentViewWrapper(),
-          const SizedBox(height: 40),
+        const SizedBox(height: 40),
         ActionButtonSection(
           currentStep: currentStep,
           onNextPressed: _onNextPressed,
@@ -51,6 +51,9 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
     }
     if (currentStep == 2) {
       context.read<AppointmentBloc>().add(FetchAppointments());
+    }
+    if (currentStep == 3) {
+      context.read<AppointmentBloc>().add(ScheduleAppointment());
     }
     setState(() {
       if (currentStep < 3) currentStep++;
