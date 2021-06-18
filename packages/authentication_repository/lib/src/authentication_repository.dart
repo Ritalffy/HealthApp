@@ -38,21 +38,29 @@ class AuthenticationRepository {
     );
   }
 
-  Future<Person> getPersonByUsername({
-    required String email,
+  Future<int> getUserIdByMail(String email) async {
+    final response = await api.client.get<dynamic>(
+      'getID/$email',
+    );
+
+    return response.data[0];
+  }
+
+  Future<Person> getPersonById({
+    required int id,
   }) async {
     final response = await api.client.get<dynamic>(
-      'person/$email',
+      'person/$id',
     );
 
     return Person(
-      id: response.data['id'],
-      firstName: response.data['FirstName'],
-      lastName: response.data['LastName'],
-      street: response.data['Street'],
-      city: response.data['City'],
-      zip: response.data['Zip'],
-      phone: response.data['Phone'],
+      id: response.data['id'] ?? 0,
+      firstName: response.data['FirstName'] ?? '',
+      lastName: response.data['LastName'] ?? '',
+      street: response.data['Street'] ?? '',
+      city: response.data['City'] ?? '',
+      zip: response.data['Zip'] ?? '',
+      phone: response.data['Phone'] ?? '',
     );
   }
 

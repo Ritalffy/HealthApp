@@ -66,9 +66,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           email: state.email.value,
           password: state.password.value,
         );
-        final user = await _authenticationRepository.getPersonByUsername(
-          email: state.email.value,
+        final id = await _authenticationRepository.getUserIdByMail(
+          state.email.value,
         );
+        final user = await _authenticationRepository.getPersonById(id: id);
 
         final _storage = FlutterSecureStorage();
         // _authenticationRepository.setToken(response.token);
