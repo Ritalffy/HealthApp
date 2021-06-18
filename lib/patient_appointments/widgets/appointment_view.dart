@@ -1,18 +1,24 @@
+import 'package:authentication_repository/models/appointment.dart';
 import 'package:flutter/material.dart';
+import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
 import 'package:health_app/widgets/buttons/primary_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 typedef IntCallback = void Function(int);
 
-class AppointmentsView extends StatelessWidget {
-  final List<String> dates;
-  final IntCallback onPressed;
-  final int selectedAppointmentIndex;
+class AppointmentsView extends StatefulWidget {
+  final List<PatientAppointment> appointments;
+
   const AppointmentsView({
-    required this.dates,
-    required this.onPressed,
-    required this.selectedAppointmentIndex,
+    required this.appointments,
   });
 
+  @override
+  _AppointmentsViewState createState() => _AppointmentsViewState();
+}
+
+class _AppointmentsViewState extends State<AppointmentsView> {
+  int selectedAppointmentIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,15 +30,15 @@ class AppointmentsView extends StatelessWidget {
         ),
         const SizedBox(height: 40),
         ListView.separated(
-          itemCount: dates.length,
+          itemCount: widget.appointments.length,
           physics: const NeverScrollableScrollPhysics(),
           clipBehavior: Clip.none,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return PrimaryButton(
               isSelected: selectedAppointmentIndex == index,
-              label: dates[index],
-              onPressed: () => onPressed(index),
+              label: widget.appointments[index].doctorName,
+              onPressed: () => onSelectButton(index),
             );
           },
           separatorBuilder: (BuildContext context, int index) =>
@@ -40,5 +46,14 @@ class AppointmentsView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void onSelectButton(int index) {
+    setState(() {
+      selectedAppointmentIndex = index;
+    });
+
+    context.read<AppointmentBloc>().add(
+        AppointmentDateChanged(widget.appointments[selectedAppointmentIndex]));
   }
 }

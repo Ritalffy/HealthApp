@@ -83,7 +83,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     AppointmentDateChanged event,
     AppointmentState state,
   ) {
-    print('invoked  event ${event.appointmentDate}');
-    return state.copyWith(appointmentDate: event.appointmentDate);
+    print('invoked  event ${event.appointment}');
+    return state.copyWith(appointmentId: event.appointment.id);
   }
 }

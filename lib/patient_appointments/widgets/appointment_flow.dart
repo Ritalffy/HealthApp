@@ -2,22 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:health_app/patient_appointments/bloc/appointment_bloc.dart';
 import 'package:health_app/patient_appointments/widgets/action_buttons_section.dart';
-import 'package:health_app/patient_appointments/widgets/appointment_view.dart';
+
+import 'package:health_app/patient_appointments/widgets/appointment_view_wrapper.dart';
 import 'package:health_app/patient_appointments/widgets/initial_view.dart';
 import 'package:health_app/patient_appointments/widgets/select_doctor_view.dart';
 import 'package:health_app/patient_appointments/widgets/step_indicator.dart';
 
 class AppointmentFlow extends StatefulWidget {
-  List<String> dates = [
-    '10:00 AM 05/11',
-    '10:30 AM 05/11',
-    '11:00 AM 05/11',
-    '11:30 AM 05/11',
-    '12:00 PM 05/12',
-    '12:30 PM 05/12',
-    '1:30 PM 05/12',
-    '2:00 PM 05/12',
-  ];
   AppointmentFlow({Key? key}) : super(key: key);
 
   @override
@@ -26,7 +17,6 @@ class AppointmentFlow extends StatefulWidget {
 
 class _AppointmentFlowState extends State<AppointmentFlow> {
   int currentStep = 1;
-  int selectedAppointmentIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +34,8 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
         else if (currentStep == 2)
           SelectDoctorsView()
         else
-          AppointmentsView(
-            selectedAppointmentIndex: selectedAppointmentIndex,
-            dates: widget.dates,
-            onPressed: onSelectButton,
-          ),
-        const SizedBox(height: 40),
+          AppointmentViewWrapper(),
+          const SizedBox(height: 40),
         ActionButtonSection(
           currentStep: currentStep,
           onNextPressed: _onNextPressed,
@@ -75,15 +61,5 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
     setState(() {
       currentStep--;
     });
-  }
-
-  void onSelectButton(int index) {
-    setState(() {
-      selectedAppointmentIndex = index;
-    });
-
-    context
-        .read<AppointmentBloc>()
-        .add(AppointmentDateChanged(widget.dates[selectedAppointmentIndex]));
   }
 }

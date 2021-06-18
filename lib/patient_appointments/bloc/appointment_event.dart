@@ -25,10 +25,10 @@ class FetchAppointments extends AppointmentEvent {
 }
 
 class AppointmentDateChanged extends AppointmentEvent {
-  const AppointmentDateChanged(this.appointmentDate);
+  const AppointmentDateChanged(this.appointment);
 
-  final String appointmentDate;
+  final PatientAppointment appointment;
 
   @override
-  List<Object> get props => [appointmentDate];
+  List<Object> get props => [appointment];
 }

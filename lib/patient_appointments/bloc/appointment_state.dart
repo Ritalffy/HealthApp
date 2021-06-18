@@ -16,7 +16,7 @@ enum AvaiableAppointmentStatus {
 }
 
 class AppointmentState extends Equatable {
-  final String appointmentDate;
+  final int appointmentId;
   final String selectedDoctorProffesion;
   final List<String> avaiableProfessions;
   final List<PatientAppointment> avaiableAppointments;
@@ -24,7 +24,7 @@ class AppointmentState extends Equatable {
   final ProfessionStatus professionStatus;
 
   AppointmentState({
-    this.appointmentDate = '',
+    this.appointmentId = 0,
     this.selectedDoctorProffesion = '',
     this.avaiableProfessions = const [],
     this.avaiableAppointments = const [],
@@ -32,7 +32,7 @@ class AppointmentState extends Equatable {
     this.professionStatus = ProfessionStatus.unused,
   });
   AppointmentState copyWith({
-    String? appointmentDate,
+    int? appointmentId,
     String? selectedDoctorProffesion,
     List<String>? avaiableProfessions,
     List<PatientAppointment>? avaiableAppointments,
@@ -40,7 +40,7 @@ class AppointmentState extends Equatable {
     ProfessionStatus? professionStatus,
   }) {
     return AppointmentState(
-        appointmentDate: appointmentDate ?? this.appointmentDate,
+        appointmentId: appointmentId ?? this.appointmentId,
         selectedDoctorProffesion:
             selectedDoctorProffesion ?? this.selectedDoctorProffesion,
         avaiableProfessions: avaiableProfessions ?? this.avaiableProfessions,
@@ -52,7 +52,7 @@ class AppointmentState extends Equatable {
 
   @override
   List<Object?> get props => [
-        appointmentDate,
+        appointmentId,
         selectedDoctorProffesion,
         avaiableProfessions,
         avaiableAppointments,
