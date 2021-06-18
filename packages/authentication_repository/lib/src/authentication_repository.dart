@@ -77,7 +77,6 @@ class AuthenticationRepository {
     List<PatientAppointment> appointments = [];
     final List<dynamic> lists = response.data;
 
-    print(lists[0][0] is int);
     for (int i = 0; i < lists.length; i++) {
       int id = 0;
       DateTime startTime = DateTime.now();
@@ -98,7 +97,10 @@ class AuthenticationRepository {
 
       final parsedAppointment = PatientAppointment(
           id: id, start: startTime, end: endTime, doctorName: doctorName);
-
+      print(parsedAppointment.doctorName);
+      print(parsedAppointment.id);
+      print(parsedAppointment.start);
+      print(parsedAppointment.end);
       appointments.add(parsedAppointment);
     }
 

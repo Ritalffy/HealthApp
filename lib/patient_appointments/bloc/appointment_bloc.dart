@@ -63,6 +63,7 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
       print(appointments.length);
 
       yield state.copyWith(
+        avaiableAppointments: appointments,
         avaiableAppointmentStatus: AvaiableAppointmentStatus.fetched,
       );
     } on DioError catch (err) {
