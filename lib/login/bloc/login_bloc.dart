@@ -67,7 +67,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           password: state.password.value,
         );
         final _storage = FlutterSecureStorage();
-        _authenticationRepository.setToken(response.token);
+        // _authenticationRepository.setToken(response.token);
         await _storage.write(key: 'role', value: response.role);
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on DioError catch (err) {

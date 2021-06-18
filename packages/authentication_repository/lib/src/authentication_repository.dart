@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:authentication_repository/models/appointment.dart';
 import 'package:authentication_repository/models/auth_response.dart';
-import 'package:dio/dio.dart';
 import 'package:health_api/health_api.dart';
 
 enum AuthenticationStatus { unknown, authenticated, unauthenticated, logout }
@@ -38,14 +37,14 @@ class AuthenticationRepository {
     );
   }
 
-  void setToken(String token) {
-    api.client.interceptors.add(InterceptorsWrapper(onRequest: (
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-    ) {
-      options.headers['token'] = token;
-    }));
-  }
+  // void setToken(String token) {
+  //   api.client.interceptors.add(InterceptorsWrapper(onRequest: (
+  //     RequestOptions options,
+  //     RequestInterceptorHandler handler,
+  //   ) {
+  //     options.headers['token'] = token;
+  //   }));
+  // }
 
   void logOut() {
     api.removeAuthHeader();
