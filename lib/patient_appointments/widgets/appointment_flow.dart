@@ -63,6 +63,9 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
     if (currentStep == 1) {
       context.read<AppointmentBloc>().add(FetchProfessions());
     }
+    if (currentStep == 2) {
+      context.read<AppointmentBloc>().add(FetchAppointments());
+    }
     setState(() {
       if (currentStep < 3) currentStep++;
     });

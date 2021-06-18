@@ -68,37 +68,38 @@ class AuthenticationRepository {
   }
 
   Future<List<PatientAppointment>> getAppointmentForProfession(
-      String profession) async {
+    String profession,
+  ) async {
+    print(profession);
     final response = await api.client.get<dynamic>(
-      'AllVisitsProfession/{$profession}',
+      'AllVisitsProfession/$profession',
     );
     List<PatientAppointment> appointments = [];
-    final lists = response.data;
+    final List<dynamic> lists = response.data;
 
-    for (final appointment in lists) {
-      for (final element in appointment) {
-        int id = 0;
-        DateTime startTime = DateTime.now();
-        DateTime endTime = DateTime.now();
-        String doctorName = '';
-        if (element[0] is int) {
-          id = element[0];
-        }
-        if (element[1] is String) {
-          startTime = DateTime.parse(element[1]);
-        }
-        if (element[2] is String) {
-          endTime = DateTime.parse(element[2]);
-        }
-        if (element[3] is String) {
-          doctorName = element[3];
-        }
-
-        final parsedAppointment = PatientAppointment(
-            id: id, start: startTime, end: endTime, doctorName: doctorName);
-
-        appointments.add(parsedAppointment);
+    print(lists[0][0] is int);
+    for (int i = 0; i < lists.length; i++) {
+      int id = 0;
+      DateTime startTime = DateTime.now();
+      DateTime endTime = DateTime.now();
+      String doctorName = '';
+      if (lists[i][0] is int) {
+        id = lists[i][0];
       }
+      if (lists[i][1] is String) {
+        startTime = DateTime.parse(lists[i][1]);
+      }
+      if (lists[i][2] is String) {
+        endTime = DateTime.parse(lists[i][2]);
+      }
+      if (lists[i][3] is String) {
+        doctorName = lists[i][3];
+      }
+
+      final parsedAppointment = PatientAppointment(
+          id: id, start: startTime, end: endTime, doctorName: doctorName);
+
+      appointments.add(parsedAppointment);
     }
 
     return appointments;

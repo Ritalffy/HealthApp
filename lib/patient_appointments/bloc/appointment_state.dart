@@ -19,7 +19,7 @@ class AppointmentState extends Equatable {
   final String appointmentDate;
   final String selectedDoctorProffesion;
   final List<String> avaiableProfessions;
-  final List<PatientAppointmentsPage> avaiableAppointments;
+  final List<PatientAppointment> avaiableAppointments;
   final AvaiableAppointmentStatus avaiableAppointmentStatus;
   final ProfessionStatus professionStatus;
 
@@ -35,7 +35,7 @@ class AppointmentState extends Equatable {
     String? appointmentDate,
     String? selectedDoctorProffesion,
     List<String>? avaiableProfessions,
-    List<PatientAppointmentsPage>? avaiableAppointments,
+    List<PatientAppointment>? avaiableAppointments,
     AvaiableAppointmentStatus? avaiableAppointmentStatus,
     ProfessionStatus? professionStatus,
   }) {

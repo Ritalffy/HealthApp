@@ -20,6 +20,10 @@ class FetchProfessions extends AppointmentEvent {
   const FetchProfessions();
 }
 
+class FetchAppointments extends AppointmentEvent {
+  const FetchAppointments();
+}
+
 class AppointmentDateChanged extends AppointmentEvent {
   const AppointmentDateChanged(this.appointmentDate);
 
