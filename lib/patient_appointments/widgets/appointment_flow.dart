@@ -20,28 +20,42 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: currentStep == 1
-          ? const NeverScrollableScrollPhysics()
-          : const AlwaysScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(24),
-      children: [
-        const SizedBox(height: 100),
-        StapIndicator(currentStep: currentStep),
-        const SizedBox(height: 50),
-        if (currentStep == 1)
-          InitialView()
-        else if (currentStep == 2)
-          SelectDoctorsView()
-        else
-          AppointmentViewWrapper(),
-        const SizedBox(height: 40),
-        ActionButtonSection(
-          currentStep: currentStep,
-          onNextPressed: _onNextPressed,
-          onPrevPressed: _onPrevPressed,
-        ),
-      ],
+    return BlocConsumer<AppointmentBloc, AppointmentState>(
+      listener: (context, state) {
+        if (state.schedulingAppointmentStatus ==
+            SchedulingAppointmentStatus.fetched) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(content: Text('Correct scheduling')),
+            );
+        }
+      },
+      builder: (context, state) {
+        return ListView(
+          physics: currentStep == 1
+              ? const NeverScrollableScrollPhysics()
+              : const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(24),
+          children: [
+            const SizedBox(height: 100),
+            StapIndicator(currentStep: currentStep),
+            const SizedBox(height: 50),
+            if (currentStep == 1)
+              InitialView()
+            else if (currentStep == 2)
+              SelectDoctorsView()
+            else
+              AppointmentViewWrapper(),
+            const SizedBox(height: 40),
+            ActionButtonSection(
+              currentStep: currentStep,
+              onNextPressed: _onNextPressed,
+              onPrevPressed: _onPrevPressed,
+            ),
+          ],
+        );
+      },
     );
   }
 

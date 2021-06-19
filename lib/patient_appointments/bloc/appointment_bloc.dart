@@ -58,9 +58,9 @@ class AppointmentBloc extends Bloc<AppointmentEvent, AppointmentState> {
     yield state.copyWith(
         schedulingAppointmentStatus: SchedulingAppointmentStatus.loading);
     try {
-      // TODO: add put visit 
-      //get user id
-      //put visit
+        // TODO: add put visit 
+        //get user id
+        //put visit
 
       yield state.copyWith(
         schedulingAppointmentStatus: SchedulingAppointmentStatus.fetched,

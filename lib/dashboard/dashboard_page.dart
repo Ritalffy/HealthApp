@@ -19,6 +19,7 @@ class _DashboardPageState extends State<DashboardPage> {
     DashboardTab.appointments: GlobalKey<NavigatorState>(),
     DashboardTab.setting: GlobalKey<NavigatorState>(),
   };
+  int openIncrementator = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +76,7 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {
       _selectedIndex = index;
     });
+    openIncrementator++;
   }
 
   Route<void> generateRoute(RouteSettings settings) {
