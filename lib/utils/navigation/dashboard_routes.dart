@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:health_app/appointment_details/appointment_details.dart';
 import 'package:health_app/blocs/authentication/bloc/authentication_bloc.dart';
 import 'package:health_app/home/view/home_page.dart';
 import 'package:health_app/my_appointments/scheduled_appointments.dart';
@@ -15,6 +16,8 @@ class DashboardRoutes {
   static const edit = '$_baseRoute/edit';
   static const patientAppointments =
       '$_baseRoute/patient/appointments/schedule';
+  static const patientAppointmentsDetails =
+      '$_baseRoute/patient/appointments/details';
 
   late AuthenticationBloc authenticationBloc;
 
@@ -39,6 +42,17 @@ class DashboardRoutes {
         return MaterialPageRoute<void>(
           builder: (_) => BlocProvider.value(
               value: authenticationBloc, child: PatientAppointmentsPage()),
+          settings: settings,
+        );
+      case patientAppointmentsDetails:
+        assert(settings.arguments is AppointmentDetailsPageArgs &&
+            settings.arguments != null);
+
+        AppointmentDetailsPageArgs args =
+            settings.arguments as AppointmentDetailsPageArgs;
+        return MaterialPageRoute<void>(
+          builder: (_) => BlocProvider.value(
+              value: authenticationBloc, child: AppointmentDetailsPage(args)),
           settings: settings,
         );
 

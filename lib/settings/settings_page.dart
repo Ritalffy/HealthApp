@@ -26,7 +26,6 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(Icons.supervised_user_circle),
               title: Text('Edit profile'),
               trailing: const Icon(Icons.arrow_forward_ios),
-              // TODO: (Wiktoria) add edition profile page
               onTap: () {},
             ),
             const Divider(),
