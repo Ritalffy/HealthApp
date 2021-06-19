@@ -7,6 +7,7 @@ import 'package:health_app/patient_appointments/widgets/appointment_view_wrapper
 import 'package:health_app/patient_appointments/widgets/initial_view.dart';
 import 'package:health_app/patient_appointments/widgets/select_doctor_view.dart';
 import 'package:health_app/patient_appointments/widgets/step_indicator.dart';
+import 'package:health_app/utils/navigation/dashboard_routes.dart';
 
 class AppointmentFlow extends StatefulWidget {
   AppointmentFlow({Key? key}) : super(key: key);
@@ -29,6 +30,8 @@ class _AppointmentFlowState extends State<AppointmentFlow> {
             ..showSnackBar(
               const SnackBar(content: Text('Correct scheduling')),
             );
+          Navigator.of(context, rootNavigator: false)
+              .pushNamed<void>(DashboardRoutes.appointments);
         }
       },
       builder: (context, state) {

@@ -17,7 +17,7 @@ class AppointmentViewWrapper extends StatelessWidget {
             return Text('error occurred');
 
           case AvaiableAppointmentStatus.fetched:
-            return AppointmFentsView(
+            return AppointmentsView(
               appointments: state.avaiableAppointments,
             );
 

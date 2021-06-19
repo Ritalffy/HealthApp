@@ -12,6 +12,7 @@ class DashboardRoutes {
   static const home = '$_baseRoute/home';
   static const appointments = '$_baseRoute/appointments';
   static const setting = '$_baseRoute/settings';
+  static const edit = '$_baseRoute/edit';
   static const patientAppointments =
       '$_baseRoute/patient/appointments/schedule';
 
