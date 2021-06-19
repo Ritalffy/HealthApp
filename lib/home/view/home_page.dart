@@ -16,11 +16,11 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(12.0),
         children: [
           PrimaryCard(
-            description: 'Schedule your appointment',
-            iconData: Icons.schedule,
-            buttonLabel: 'Schedule',
+            description: 'Check scheduled visitis',
+            iconData: Icons.check,
+            buttonLabel: 'Check',
             onPressed: () => Navigator.of(context, rootNavigator: false)
-                .pushNamed<void>(DashboardRoutes.patientAppointments),
+                .pushNamed<void>(DashboardRoutes.appointments),
           ),
           const SizedBox(height: 12),
           PrimaryCard(
